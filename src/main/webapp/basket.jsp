@@ -1,114 +1,70 @@
-
 <%@ page import="java.util.Map" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="java.util.Date" %>
 <%@ page import="java.util.Objects" %>
-<%@ page import="com.salemart.entity.Basket" %>
-<%@ page import="com.salemart.entity.Product" %>
-
+<%@ page import="static com.salemart.db.DB.orderItems" %>
+<%@ page import="static com.salemart.db.DB.orders" %>
+<%@ page import="com.salemart.entity.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Basket</title>
+    <title>Order Notification</title>
     <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .basket-item {
-            border-bottom: 1px solid #ddd;
-            padding: 15px 0;
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            margin: 0;
         }
-        .basket-item:last-child {
-            border-bottom: none;
-        }
-        .total-section {
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        .quantity-controls button {
-            width: 30px;
-            height: 30px;
+
+        .notification-container {
             text-align: center;
-            padding: 0;
-            margin: 0 5px;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        .action-buttons {
-            margin-top: 20px;
+
+        .notification-container h1 {
+            margin-bottom: 20px;
+            color: #007bff;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1 class="my-4">Your Basket</h1>
-    <%
-        Basket basket = (Basket) Objects.requireNonNullElse(session.getAttribute("basket"), new Basket());
-        if (basket.getBasket().isEmpty()) {
-    %>
-    <div class="alert alert-warning" role="alert">
-        Your basket is empty.
-    </div>
-    <a href="mainPage.jsp" class="btn btn-secondary">Go Back</a>
-    <%
-    } else {
-    %>
-    <div class="row">
-        <!-- Display Basket Items -->
-        <div class="col-md-12">
-            <ul class="list-unstyled">
-                <%
-                    double totalPrice = 0;
-                    for (Map.Entry<Product, Integer> entry : basket.getBasket().entrySet()) {
-                        Product product = entry.getKey();
-                        int quantity = entry.getValue();
-                        double productTotal = product.getPrice() * quantity;
-                        totalPrice += productTotal;
-                %>
-                <li class="basket-item">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <img style="width: 60px; margin-right: 10px" src="/files/<%= product.getId() %>" alt="Product">
-                            <h5 class="d-inline-block"><%= product.getName() %></h5>
-                            <p>Price: $<%= product.getPrice() %> x <%= quantity %></p>
-                            <p>Total: $<%= productTotal %></p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <!-- Quantity Controls -->
-                            <div class="quantity-controls d-flex align-items-center">
-                                <form action="basketquantityServlet" method="get" style="display: inline;">
-                                    <input type="hidden" name="productId" value="<%= product.getId() %>">
-                                    <input type="hidden" name="action" value="decrement">
-                                    <button type="submit" class="btn btn-outline-secondary" <%= quantity == 1 ? "disabled" : "" %>>-</button>
-                                </form>
-                                <span class="mx-2"><%= quantity %></span>
-                                <form action="basketquantityServlet" method="get" style="display: inline;">
-                                    <input type="hidden" name="productId" value="<%= product.getId() %>">
-                                    <input type="hidden" name="action" value="increment">
-                                    <button type="submit" class="btn btn-outline-secondary">+</button>
-                                </form>
-                            </div>
-                            <a href="basketServlet?productId=<%= product.getId() %>&action=remove" class="btn btn-danger ms-3">Remove</a>
-                        </div>
-                    </div>
-                </li>
-                <%
-                    }
-                %>
-            </ul>
-        </div>
-    </div>
-    <div class="total-section mt-4 text-end">
-        <p>Total Price: $<%= totalPrice %></p>
-    </div>
 
-    <!-- Action Buttons -->
-    <div class="action-buttons d-flex justify-content-between">
-        <!-- Go Back Button -->
-        <a href="mainPage.jsp" class="btn btn-secondary">Go Back</a>
-        <!-- Checkout Button -->
-        <form action="user/notificate.jsp" method="post">
-            <button class="btn btn-primary">Checkout</button>
-        </form>
-    </div>
-    <%
-        }
-    %>
+<%
+    Basket basket=(Basket) Objects.requireNonNullElse(session.getAttribute("basket"),new Basket());
+    User user=(User)Objects.requireNonNullElse(session.getAttribute("user"),new User());
+%>
+
+<%
+    Order order = new Order();
+    order.setDate(new Date());
+    order.setUser_id(user.getId());
+    for (Map.Entry
+            <Product, Integer> productIntegerEntry : basket.getBasket().entrySet()) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setOrderId(order.getOrder_id());
+        orderItem.setQuantity(productIntegerEntry.getValue());
+        orderItem.setProductId(productIntegerEntry.getKey().getId());
+        orderItems.add(orderItem);
+    }
+    orders.add(order);
+    basket.getBasket().clear();
+
+%>
+
+<div class="notification-container">
+    <h1>We Received Your Order!</h1>
+    <p>Thank you for shopping with us. Your order has been successfully placed.</p>
+    <!-- Main Page Button -->
+    <a href="../mainPage.jsp" class="btn btn-primary mt-3">Back to Main Page</a>
 </div>
 
 <!-- Include Bootstrap JS -->
