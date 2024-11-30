@@ -20,7 +20,8 @@ public class Filter extends HttpFilter {
 
         List<String> openPages = Arrays.asList(
                 "/mainPage.jsp",
-                "/login/loginPage.jsp"
+                "/login/loginPage.jsp",
+                "/basket.jsp"
         );
 
         String requestURI = req.getRequestURI();

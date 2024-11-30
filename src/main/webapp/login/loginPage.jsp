@@ -1,133 +1,52 @@
-<%@ page import="static com.salemart.db.DB.categories" %>
-<%@ page import="com.salemart.entity.Category" %>
-<%@ page import="static com.salemart.db.DB.products" %>
-<%@ page import="com.salemart.entity.Product" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category-based Product Page</title>
+    <title>Login Page</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #fdf3e4;
-        }
-
-        .header {
-            background-color: #4a3f35;
-            color: #ffdd7e;
-        }
-
-        .header h1 {
-            font-family: 'Georgia', serif;
-        }
-
-        .sidebar {
-            background-color: #ffdd7e;
-            min-height: 100vh;
-        }
-
-        .sidebar .btn {
-            width: 100%;
-            margin-bottom: 10px;
-            text-align: left;
-            background-color: #4a3f35;
-            color: #ffdd7e;
-            border: none;
-        }
-
-        .sidebar .btn:hover {
-            background-color: #f58c1f;
-            color: #fff;
-        }
-
-        .main-content {
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .category-title {
-            font-size: 1.5rem;
-            color: #f58c1f;
-            font-family: 'Georgia', serif;
-        }
-
-        .header button {
-            background-color: #f58c1f;
-            color: #fff;
-            border: none;
-        }
-
-        .header button:hover {
-            background-color: #4a3f35;
-            color: #ffdd7e;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<!-- Header -->
-<header class="header p-3 d-flex justify-content-between align-items-center">
-    <h1 class="m-0">My Vibrant Store</h1>
-    <div>
-        <button class="btn btn-sm me-2">Log In</button>
-        <button class="btn btn-sm">Basket</button>
-    </div>
-</header>
+<body class="bg-light">
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <aside class="col-md-3 col-lg-2 sidebar p-3">
-            <h5 class="text-dark">Categories</h5>
-
-            <form method="GET" action="loginPage.jsp.">
-                <button name="categoryId" value=<%=0%> class="btn"> All Products</button>
-            </form>
-
-            <form method="GET" action="loginPage.jsp">
-                <%
-                    for (Category category : categories) {
-                %>
-                <button name="categoryId" value=<%=category.getId()%> class="btn"><%=category.getName()%></button>
-                <%
-                }
-                %>
-            </form>
-        </aside>
-
-
-        <main class="col-md-9 col-lg-10">
-            <div class="main-content">
-                <%
-                    String category = request.getParameter("categoryId");
-                    for (Product product : products) {
-                        if (category.equals("0") || category.equals(product.getCategoryId()+"")) {
-                %>
-
-
-
-                <%
-                } else {
-                %>
-                <h2 class="category-title"><%= category.substring(0, 1).toUpperCase() + category.substring(1) %>
-                    Products</h2>
-                <p>Here are the products for the <%= category %> category...</p>
-                <%
-                    }
-                    }
-                %>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+        <h3 class="text-center mb-4">Login</h3>
+        <%
+            request.getSession().invalidate();
+        %>
+        <form action="/login" method="post">
+            <!-- Username Field -->
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input autofocus type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
             </div>
-        </main>
+            <!-- Password Field -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input  type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <!-- Remember Me -->
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
+                <label class="form-check-label" for="rememberMe">Remember me</label>
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <!-- Forgot Password -->
+            <div class="text-center mt-3">
+                <a href="forgot-password.jsp" class="text-decoration-none">Forgot password?</a>
+            </div>
+        </form>
+        <hr>
+        <!-- Create Account Section -->
+        <div class="text-center">
+            <p class="mb-2">Don't have an account?</p>
+            <a href="register.jsp" class="btn btn-outline-primary w-100">Create Account</a>
+        </div>
     </div>
 </div>
 
-<!-- Bootstrap JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@
 <%@ page import="java.util.Objects" %>
 <%@ page import="static com.salemart.db.DB.categories" %>
 <%@ page import="com.salemart.entity.Category" %>
+<%@ page import="com.salemart.entity.User" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,7 +149,18 @@
 <header class="header d-flex justify-content-between align-items-center">
     <h1>Centered Product Display</h1>
     <div>
-        <a class="btn">Log In</a>
+        <%
+            User user = (User) request.getSession().getAttribute("user");
+            if (user == null) {
+        %>
+        <a href="login/loginPage.jsp" class="btn">Log In</a>
+        <%
+        } else {
+        %>
+            <a href="loginOutServlet" class="btn">Log out</a>
+        <%
+        }
+        %>
         <a href="basket.jsp" class="btn btn-basket">Basket</a>
     </div>
 </header>
@@ -166,7 +178,8 @@
                 <%
                     for (Category category : categories) {
                 %>
-                <button name="categoryId" value="<%=category.getId()%>" class="btn"><%=category.getName()%></button>
+                <button name="categoryId" value="<%=category.getId()%>" class="btn"><%=category.getName()%>
+                </button>
                 <%
                     }
                 %>
@@ -187,19 +200,24 @@
                     <div class="card">
                         <img src="/files/<%=product.getId()%>" alt="<%=product.getName()%>">
                         <div class="card-body">
-                            <h5 class="card-title"><%=product.getName()%></h5>
-                            <p class="card-text">$<%=product.getPrice()%></p>
+                            <h5 class="card-title"><%=product.getName()%>
+                            </h5>
+                            <p class="card-text">$<%=product.getPrice()%>
+                            </p>
                             <%
                                 Basket basket = (Basket) Objects.requireNonNullElse(session.getAttribute("basket"), new Basket());
                                 boolean isProductInBasket = basket.getBasket().keySet().stream()
                                         .anyMatch(p -> p.getId() == product.getId());
                                 if (isProductInBasket) {
                             %>
-                            <a class="btn btn-danger" href="basketServlet?productId=<%=product.getId()%>&categoryId=<%=categoryId%>">Remove</a>
+                            <a class="btn btn-danger"
+                               href="basketServlet?productId=<%=product.getId()%>&categoryId=<%=categoryId%>">Remove</a>
                             <%
                             } else {
                             %>
-                            <a class="btn btn-primary" href="basketServlet?productId=<%=product.getId()%>&categoryId=<%=categoryId%>">Add to Basket</a>
+                            <a class="btn btn-primary"
+                               href="basketServlet?productId=<%=product.getId()%>&categoryId=<%=categoryId%>">Add to
+                                Basket</a>
                             <%
                                 }
                             %>
