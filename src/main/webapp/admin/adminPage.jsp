@@ -71,13 +71,13 @@
 
         .main .header a {
             display: inline-block;
-            width: 50px;
+            width: 60px;
             height: 50px;
             text-align: center;
             line-height: 50px;
             background-color: #007bff;
             color: white;
-            font-size: 30px;
+            font-size: 15px;
             text-decoration: none;
             border-radius: 50%;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -163,7 +163,7 @@
             }
         %>
         <!-- Sign Out Button -->
-        <a href="/loginOutServlet" class="sign-out">Exit</a>
+        <a href="/loginOutServlet" class="sign-out">Log Out</a>
     </div>
 
     <div class="content">
