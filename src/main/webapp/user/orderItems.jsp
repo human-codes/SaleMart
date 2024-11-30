@@ -109,7 +109,7 @@
                 <%= (product != null) ? product.getName() : "Unknown Product" %>
             </span>
             <span><strong>Quantity:</strong> <%= orderItem.getQuantity() %></span>
-            <span><img style="width: 60px; margin:10px" src="/file/<%=product.getId()%>" alt=""></span>
+            <span><img style="width: 60px; margin:10px" src="/files/<%=product.getId()%>" alt=""></span>
         </div>
     </li>
     <%
