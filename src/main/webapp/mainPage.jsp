@@ -9,107 +9,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category-based Product Page</title>
+    <title>Centered Product Display</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #ffe6d1; /* Soft peach background */
+            background-color: #f8f9fa; /* Soft background */
         }
 
         .header {
-            background-color: #6a994e; /* Fresh green */
-            color: #ffe6d1; /* Peach contrast */
+            background-color: #2c3e50; /* Dark blue */
+            color: #ecf0f1; /* Light grey text */
+            padding: 20px;
         }
 
         .header h1 {
             font-family: 'Georgia', serif;
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .header .btn {
+            background-color: #e67e22; /* Orange */
+            color: white;
+            border: none;
+            font-size: 1rem;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .header .btn:hover {
+            background-color: #d35400; /* Darker orange */
+        }
+
+        .header .btn-basket {
+            margin-left: 10px;
         }
 
         .sidebar {
-            background-color: #f4a261; /* Warm coral */
+            background-color: #34495e; /* Deep blue-grey */
+            color: #ecf0f1;
             min-height: 100vh;
+            padding: 20px;
+        }
+
+        .sidebar h5 {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         .sidebar .btn {
             width: 100%;
             margin-bottom: 10px;
-            text-align: left;
-            background-color: #2a9d8f; /* Cool teal */
-            color: #ffffff;
+            background-color: #16a085; /* Teal */
+            color: white;
             border: none;
+            font-size: 1rem;
         }
 
         .sidebar .btn:hover {
-            background-color: #e76f51; /* Deep coral */
-            color: #fff;
+            background-color: #1abc9c; /* Lighter teal */
         }
 
         .main-content {
             padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .category-title {
-            font-size: 1.5rem;
-            color: #264653; /* Rich slate blue */
-            font-family: 'Georgia', serif;
-        }
-
-        .header button {
-            background-color: #e9c46a; /* Warm yellow */
-            color: #264653; /* Rich slate blue */
-            border: none;
-        }
-
-        .header button:hover {
-            background-color: #2a9d8f; /* Cool teal */
-            color: #fff;
         }
 
         .card {
-            background-color: #fdf3e4; /* Light cream */
-            border: 1px solid #e9c46a; /* Yellow border */
+            border: none;
+            background-color: #ffffff; /* White for clean design */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
         }
 
-        .card .btn-primary {
-            background-color: #264653; /* Rich slate blue */
+        .card:hover {
+            transform: translateY(-10px); /* Slight lift on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+            object-fit: contain; /* Maintain aspect ratio without cropping */
+            max-height: 200px; /* Prevent oversized images */
+            margin-bottom: 15px;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #7f8c8d; /* Subtle grey */
+            margin-bottom: 15px;
+        }
+
+        .btn-primary, .btn-danger {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
             border: none;
         }
 
-        .card .btn-primary:hover {
-            background-color: #6a994e; /* Fresh green */
+        .btn-primary {
+            background-color: #2980b9; /* Blue */
+            color: white;
         }
 
-        .card .btn-danger {
-            background-color: #e76f51; /* Deep coral */
-            border: none;
+        .btn-primary:hover {
+            background-color: #3498db; /* Lighter blue */
         }
 
-        .card .btn-danger:hover {
-            background-color: #6a994e; /* Fresh green */
+        .btn-danger {
+            background-color: #c0392b; /* Red */
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #e74c3c; /* Lighter red */
         }
     </style>
 </head>
 <body>
 <!-- Header -->
-<header class="header p-3 d-flex justify-content-between align-items-center">
-    <h1 class="m-0">My Vibrant Store</h1>
+<header class="header d-flex justify-content-between align-items-center">
+    <h1>Centered Product Display</h1>
     <div>
-        <button class="btn btn-sm me-2">Log In</button>
-        <button class="btn btn-sm">Basket</button>
+        <a class="btn">Log In</a>
+        <a href="basket.jsp" class="btn btn-basket">Basket</a>
     </div>
 </header>
 
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <aside class="col-md-3 col-lg-2 sidebar p-3">
-            <h5 class="text-white">Categories</h5>
-
+        <aside class="col-md-3 col-lg-2 sidebar">
+            <h5>Categories</h5>
             <form method="GET" action="mainPage.jsp">
                 <button name="categoryId" value="0" class="btn">All Products</button>
             </form>
@@ -118,17 +166,16 @@
                 <%
                     for (Category category : categories) {
                 %>
-                <button name="categoryId" value="<%=category.getId()%>" class="btn"><%=category.getName()%>
-                </button>
+                <button name="categoryId" value="<%=category.getId()%>" class="btn"><%=category.getName()%></button>
                 <%
                     }
                 %>
             </form>
         </aside>
 
-
-        <main class="col-md-9 col-lg-10">
-            <div class="row g-3">
+        <!-- Main Content -->
+        <main class="col-md-9 col-lg-10 main-content">
+            <div class="row g-4">
                 <%
                     String categoryIdParam = request.getParameter("categoryId");
                     int categoryId = (categoryIdParam != null) ? Integer.parseInt(categoryIdParam) : 0;
@@ -137,30 +184,25 @@
                         if (categoryId == 0 || product.getCategoryId() == categoryId) {
                 %>
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 p-3 d-flex justify-content-between">
-                        <div>
-                            <h5 class="card-title"><%= product.getName() %></h5>
-                            <div class="d-flex align-items-center">
-                                <p class="mb-0 me-3"><strong>Price:</strong> $<%= product.getPrice() %></p>
-                                <img style="width: 60px; margin:10px" src="/file/<%=product.getId()%>" alt="">
-                                <%
-                                    Basket basket = (Basket) Objects.requireNonNullElse(session.getAttribute("basket"), new Basket());
-
-                                    boolean isProductInBasket = basket.getBasket().keySet().stream()
-                                            .anyMatch(p -> p.getId() == product.getId());
-                                    if (isProductInBasket) {
-                                %>
-                                <a class="btn btn-danger"
-                                   href="basketServlet?productId=<%=product.getId()%>&categoryId=<%=categoryId%>">Remove</a>
-                                <%
-                                } else {
-                                %>
-                                <a class="btn btn-primary"
-                                   href="basketServlet?productId=<%=product.getId()%>&categoryId=<%=categoryId%>">Select</a>
-                                <%
-                                    }
-                                %>
-                            </div>
+                    <div class="card">
+                        <img src="/files/<%=product.getId()%>" alt="<%=product.getName()%>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%=product.getName()%></h5>
+                            <p class="card-text">$<%=product.getPrice()%></p>
+                            <%
+                                Basket basket = (Basket) Objects.requireNonNullElse(session.getAttribute("basket"), new Basket());
+                                boolean isProductInBasket = basket.getBasket().keySet().stream()
+                                        .anyMatch(p -> p.getId() == product.getId());
+                                if (isProductInBasket) {
+                            %>
+                            <a class="btn btn-danger" href="basketServlet?productId=<%=product.getId()%>&categoryId=<%=categoryId%>">Remove</a>
+                            <%
+                            } else {
+                            %>
+                            <a class="btn btn-primary" href="basketServlet?productId=<%=product.getId()%>&categoryId=<%=categoryId%>">Add to Basket</a>
+                            <%
+                                }
+                            %>
                         </div>
                     </div>
                 </div>
