@@ -13,27 +13,31 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f9f9f9;
+            background-color: #f0f4f8;
         }
 
         h1 {
-            color: #333;
+            color: #ffffff;
             text-align: center;
+            background-color: #2c3e50;
+            padding: 15px;
+            margin: 0;
+            font-size: 24px;
         }
 
         .item-list {
             list-style: none;
             padding: 0;
-            max-width: 600px;
+            max-width: 800px;
             margin: 20px auto;
         }
 
         .item {
             background: #ffffff;
             margin: 10px 0;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -45,12 +49,14 @@
         }
 
         .item-details span {
-            margin: 2px 0;
-            font-size: 14px;
+            margin: 5px 0;
+            font-size: 16px;
+            color: #34495e;
         }
 
-        .item-details span strong {
-            color: #555;
+        .item-details img {
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
 
         .button-container {
@@ -74,11 +80,16 @@
         }
 
         .button-container .back-button {
-            background: #28a745;
+            background: #ff8c00;
         }
 
         .button-container .back-button:hover {
-            background: #218838;
+            background: #e67e22;
+        }
+
+        .item:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
         }
     </style>
 </head>
@@ -109,7 +120,7 @@
                 <%= (product != null) ? product.getName() : "Unknown Product" %>
             </span>
             <span><strong>Quantity:</strong> <%= orderItem.getQuantity() %></span>
-            <span><img style="width: 60px; margin:10px" src="/files/<%=product.getId()%>" alt=""></span>
+            <span><img style="width: 60px; margin:10px" src="/files/<%= product.getId() %>" alt="Product Image"></span>
         </div>
     </li>
     <%
@@ -124,7 +135,6 @@
     </li>
     <% } %>
 </ul>
-
 
 <div class="button-container">
     <a href="orders.jsp" class="back-button">Go Back to Orders</a>

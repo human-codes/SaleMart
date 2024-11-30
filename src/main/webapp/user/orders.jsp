@@ -11,18 +11,19 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f9f9f9;
+            background-color: #eef2f3; /* Sof ko'k va oq orasidagi aralash rang */
         }
 
         h1 {
-            color: #333;
+            color: #004085; /* To'q ko'k */
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .order-list {
             list-style: none;
             padding: 0;
-            max-width: 600px;
+            max-width: 700px;
             margin: 20px auto;
         }
 
@@ -31,10 +32,16 @@
             margin: 10px 0;
             padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .order-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
         .order-details {
@@ -43,16 +50,17 @@
         }
 
         .order-details span {
-            margin: 2px 0;
-            font-size: 14px;
+            margin: 5px 0;
+            font-size: 15px;
+            color: #495057; /* To'q kulrang */
         }
 
         .order-details span strong {
-            color: #555;
+            color: #343a40; /* To'qroq kulrang */
         }
 
         .view-items {
-            background: #007bff;
+            background: #17a2b8; /* Sof ko'k-yashil */
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -60,40 +68,39 @@
             cursor: pointer;
             text-decoration: none;
             font-size: 14px;
+            transition: background 0.2s;
         }
 
         .view-items:hover {
-            background: #0056b3;
+            background: #138496; /* To'qroq ko'k-yashil */
         }
 
         .back-button {
             display: block;
-            max-width: 600px;
+            max-width: 700px;
             margin: 20px auto;
             text-align: center;
         }
 
         .back-button a {
-            background: #28a745;
+            background: #28a745; /* Yashil */
             color: #fff;
             padding: 10px 20px;
             text-decoration: none;
             border-radius: 4px;
             font-size: 16px;
+            transition: background 0.2s;
         }
 
         .back-button a:hover {
-            background: #218838;
+            background: #218838; /* To'qroq yashil */
         }
     </style>
 </head>
 <body>
 <%
-    User user=(User)Objects.requireNonNullElse(session.getAttribute("user"),new User());
-%>
-
-<%
-
+    // Foydalanuvchini sessiyadan olish
+    User user = (User) Objects.requireNonNullElse(session.getAttribute("user"), new User());
 %>
 
 <h1>Your Orders</h1>
