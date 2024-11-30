@@ -11,10 +11,7 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
         <h3 class="text-center mb-4">Login</h3>
-        <%
-            request.getSession().invalidate();
-        %>
-        <form action="/login" method="post">
+        <form action="/loginServlet" method="post">
             <!-- Username Field -->
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>

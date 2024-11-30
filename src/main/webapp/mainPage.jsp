@@ -5,6 +5,7 @@
 <%@ page import="static com.salemart.db.DB.categories" %>
 <%@ page import="com.salemart.entity.Category" %>
 <%@ page import="com.salemart.entity.User" %>
+<%@ page import="static com.salemart.db.DB.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,22 +149,28 @@
 <!-- Header -->
 <header class="header d-flex justify-content-between align-items-center">
     <h1>Centered Product Display</h1>
-    <div>
+    <div class="d-flex align-items-center">
         <%
             User user = (User) request.getSession().getAttribute("user");
             if (user == null) {
         %>
-        <a href="login/loginPage.jsp" class="btn">Log In</a>
+        <a href="login/loginPage.jsp" class="btn me-2">Log In</a>
         <%
         } else {
         %>
-            <a href="loginOutServlet" class="btn">Log out</a>
+        <a href="loginOutServlet" class="btn me-2">Log Out</a>
         <%
-        }
+            }
+            if (!orders.isEmpty() && user != null) {
+        %>
+        <a href="user/orders.jsp" class="btn me-2">My Orders</a>
+        <%
+            }
         %>
         <a href="basket.jsp" class="btn btn-basket">Basket</a>
     </div>
 </header>
+
 
 <div class="container-fluid">
     <div class="row">

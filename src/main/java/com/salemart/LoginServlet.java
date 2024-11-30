@@ -12,7 +12,7 @@ import java.util.Optional;
 
 
 import static com.salemart.db.DB.users;
-@WebServlet("/login")
+@WebServlet("/loginServlet")
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

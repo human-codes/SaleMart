@@ -51,7 +51,6 @@ public class ProductQuantityServlet extends HttpServlet {
             }
         }
         req.setAttribute("basket", basket);
-        // Redirect back to the basket page
-        resp.sendRedirect("basket.jsp");
+        resp.sendRedirect("/basket.jsp");
     }
 }
